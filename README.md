@@ -143,7 +143,7 @@ void mouse(int key, int state, int x, int y){
     }
 }
 ```
-#
+
 #### Declansarea miscarii pieselor
 1. atunci cand varful masinii loveste prima piesa de domino aceasta incepe rotatia
 2. limita stanga de miscare a masinii se modifica deoarece prima piesa se muta
