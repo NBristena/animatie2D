@@ -1,5 +1,6 @@
-# Proiect Grafica pe calculator : Domino 2D
-##### Nicolescu Bristena    |    Grupa 253
+# Autostrada A2
+##### Zanfir Andrei
+##### Grupa 254
 
 
 ## Descrierea proiectului
@@ -170,4 +171,4 @@ if (rotate_angle_6 < 90 && rotate_angle_5 >= 11.5)
 ```
 
 ## Originalitate
-Fiind o simpla animatie a unor piese de domino elementul principal de originalitate este reprezentat de metoda aleasa pentru inceperea miscarii pieselor (lovite de o masina), impreuna cu avertizarile afisate prin text in momentele in care masina nu se mai poate deplasa sau nu ar mai trebui sa se deplaseze. Nu este o idee nemaiintalnita insa am preferat-o in detrimentul impingerii primei piese cu un deget.
+Fiind o simpla animatie a unor piese de domino elementul principal de originalitate este reprezentat de metoda aleasa pentru inceperea miscarii pieselor (lovite de o masina), impreuna cu avertizarile afisate prin text in momentele in care masina nu se mai poate deplasa sau nu ar mai trebui sa se deplaseze. Nu este o idee nemaiintalnita insa am preferat-o in detrimentul impingerii primei piese cu un deget sau o bila.
