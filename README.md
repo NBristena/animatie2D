@@ -1,6 +1,5 @@
-# Autostrada A2
-##### Zanfir Andrei
-##### Grupa 254
+# Proiect Grafica pe calculator : Domino 2D
+##### Nicolescu Bristena | Grupa 253
 
 
 ## Descrierea proiectului
