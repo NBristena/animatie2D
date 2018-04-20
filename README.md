@@ -97,9 +97,9 @@ glPopMatrix();
 - translatie compusa cu rotatie (invartirea rotilor)
 ```C++
 glPushMatrix();
-	glTranslatef(195, 35, 0.0);      //3. muta obiectul in pozitia sa initiala
-	glRotatef(alpha, 0.0, 0.0, 1.0); //2. roteste obiectul
-	glTranslatef(-195, -35, 0.0);    //1. muta obiectul in origine
+	glTranslatef(195, 35, 0.0);       //3. muta obiectul in pozitia sa initiala
+	glRotatef(alpha, 0.0, 0.0, 1.0);  //2. roteste obiectul
+	glTranslatef(-195, -35, 0.0);     //1. muta obiectul in origine
 	glCallList(regHex1);
 glPopMatrix();
 ```
@@ -114,14 +114,14 @@ Aceasta se realizeaza cu ajutorul mouse-ului: miscarea incepe la apasarea oricar
 void moveLeft(void){
 	if (x_tr > max_stg){
 		x_tr += -tr_speed; //scade val de translatie => miscare la stanga
-		alpha += tr_speed; //creste unghiul de rotatie => rotatie spre stanga
+		alpha += tr_speed; //creste unghiul de rotatie al rotilor => rotatie spre stanga
 	}
 	glutPostRedisplay();
 }
 void moveRight(void){
 	if (x_tr < max_dr){
-		x_tr += tr_speed; //creste val de translatie => miscare la dreapta
-		alpha -= tr_speed; //scade unghiul de rotatie => rotatie spre dreapta
+		x_tr += tr_speed;  //creste val de translatie => miscare la dreapta
+		alpha -= tr_speed; //scade unghiul de rotatie al rotilor => rotatie spre dreapta
 	}
 	glutPostRedisplay();
 }
