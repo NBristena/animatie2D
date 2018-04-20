@@ -168,6 +168,6 @@ if (rotate_angle_5 < 62 && rotate_angle_4 >= 11.5)
 if (rotate_angle_6 < 90 && rotate_angle_5 >= 11.5)
     rotate_angle_6 += 3;
 ```
-#
-#### Originalitate
+
+## Originalitate
 Fiind o simpla animatie a unor piese de domino elementul principal de originalitate este reprezentat de metoda aleasa pentru inceperea miscarii pieselor (lovite de o masina), impreuna cu avertizarile afisate prin text in momentele in care masina nu se mai poate deplasa sau nu ar mai trebui sa se deplaseze. Nu este o idee nemaiintalnita insa am preferat-o in detrimentul impingerii primei piese cu un deget.
