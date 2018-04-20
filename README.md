@@ -44,40 +44,41 @@ glColor3f(0.0, 0.0, 0.0);	// culoarea conturului mesei
     - rotile au 2 dreptunghiuri asezate in + pentru a evidentia rotatia
 ```C++
 // Roata 1
-	regHex1 = glGenLists(1);
-	glNewList(regHex1, GL_COMPILE);
-		glColor3f(0.0, 0.0, 0.0);
-			glBegin(GL_POLYGON);
-				for (k = 0; k < 100; k++){
-					hexTheta = TWO_PI * k / 100;
-					hexVertex.x = 195 + raza * cos(hexTheta);
-					hexVertex.y = 35 + raza * sin(hexTheta);
-					glVertex2i(hexVertex.x, hexVertex.y);
-				}
-			glEnd();
-		glColor3f(0.6, 0.6, 0.6);
-			glRecti(165, 33, 225, 37);
-			glRecti(193, 5, 197, 65);
-	glEndList();
+regHex1 = glGenLists(1);
+glNewList(regHex1, GL_COMPILE);
+        glColor3f(0.0, 0.0, 0.0);
+            glBegin(GL_POLYGON);
+                for (k = 0; k < 100; k++){
+                    hexTheta = TWO_PI * k / 100;
+                    hexVertex.x = 195 + raza * cos(hexTheta);
+                    hexVertex.y = 35 + raza * sin(hexTheta);
+                    glVertex2i(hexVertex.x, hexVertex.y);
+                }
+            glEnd();
+            
+        glColor3f(0.6, 0.6, 0.6);
+            glRecti(165, 33, 225, 37);
+            glRecti(193, 5, 197, 65);
+    glEndList();
 ```
 - 6 *piese* de domino 
     - se stiu coordonatele primei piese iar restul sunt create in functie de aceasta si sunt retinute intr-o structura
     - desenate separat pentru ca fiecare piesa sa aiba rotatia sa
 ```C++
 void createDominos(){
-	for (int c = 1; c <= nr_dominos; c++){
-		if (c == 1){
-			dominos[c].xJos = 0;
-			dominos[c].xSus = 30;
-		}else{
-			dominos[c].xJos = dominos[c - 1].xJos - 60;
-			dominos[c].xSus = dominos[c - 1].xSus - 60;
-		}
-	}
+    for (int c = 1; c <= nr_dominos; c++){
+        if (c == 1){
+            dominos[c].xJos = 0;
+            dominos[c].xSus = 30;
+        }else{
+            dominos[c].xJos = dominos[c - 1].xJos - 60;
+            dominos[c].xSus = dominos[c - 1].xSus - 60;
+        }
+    }
 }
 void drawD1(){
-	glColor3f(0.1, 0.0, 0.1);
-		glRecti(dominos[1].xJos, yJos, dominos[1].xSus, ySus);
+    glColor3f(0.1, 0.0, 0.1);
+        glRecti(dominos[1].xJos, yJos, dominos[1].xSus, ySus);
 }
 ```
 
@@ -85,28 +86,28 @@ void drawD1(){
 - translatie (miscarea masinii)
 ```C++
 glPushMatrix();
-	glTranslated(x_tr, 0, 0);
-	drawCar();
+    glTranslated(x_tr, 0, 0);
+    drawCar();
 glPopMatrix();
 ```
 - rotatie (miscarea pieselor)
 ```C++
 glPushMatrix();
-	glRotated(rotate_angle_1, 0.0, 0.0, 1.0);
-	drawD1();
+    glRotated(rotate_angle_1, 0.0, 0.0, 1.0);
+    drawD1();
 glPopMatrix();
 ```
 - translatie compusa cu rotatie (invartirea rotilor)
 ```C++
 glPushMatrix();
-	glTranslatef(195, 35, 0.0);       //3. muta obiectul in pozitia sa initiala
-	glRotatef(alpha, 0.0, 0.0, 1.0);  //2. roteste obiectul
-	glTranslatef(-195, -35, 0.0);     //1. muta obiectul in origine
-	glCallList(regHex1);
+    glTranslatef(195, 35, 0.0);        //3. muta obiectul in pozitia sa initiala
+    glRotatef(alpha, 0.0, 0.0, 1.0);   //2. roteste obiectul
+    glTranslatef(-195, -35, 0.0);      //1. muta obiectul in origine
+    glCallList(regHex1);
 glPopMatrix();
 ```
-#
-#
+
+
 ## Functionarea animatiei
  -> Instructiunile sunt afisate si in partea de sus a ferestrei.
 #### Input de la utilizator - miscarea masinii
@@ -114,32 +115,32 @@ Aceasta se realizeaza cu ajutorul mouse-ului: miscarea incepe la apasarea oricar
 
 ```c++
 void moveLeft(void){
-	if (x_tr > max_stg){
-		x_tr += -tr_speed; //scade val de translatie => miscare la stanga
-		alpha += tr_speed; //creste unghiul de rotatie al rotilor => rotatie spre stanga
-	}
-	glutPostRedisplay();
+    if (x_tr > max_stg){
+        x_tr += -tr_speed; //scade val de translatie => miscare la stanga
+        alpha += tr_speed; //creste unghiul de rotatie al rotilor => rotatie spre stanga
+    }
+    glutPostRedisplay();
 }
 void moveRight(void){
-	if (x_tr < max_dr){
-		x_tr += tr_speed;  //creste val de translatie => miscare la dreapta
-		alpha -= tr_speed; //scade unghiul de rotatie al rotilor => rotatie spre dreapta
-	}
-	glutPostRedisplay();
+    if (x_tr < max_dr){
+        x_tr += tr_speed;  //creste val de translatie => miscare la dreapta
+        alpha -= tr_speed; //scade unghiul de rotatie al rotilor => rotatie spre dreapta
+    }
+    glutPostRedisplay();
 }
 void mouse(int key, int state, int x, int y){
-	switch (key){
-    	case GLUT_LEFT_BUTTON:
-    		if (state == GLUT_DOWN)
-    			glutIdleFunc(moveLeft);
-    		break;
-    	case GLUT_RIGHT_BUTTON:
-    		if (state == GLUT_DOWN)
-    			glutIdleFunc(moveRight);
-    		break;
-    	default:
-    		break;
-	}
+    switch (key){
+        case GLUT_LEFT_BUTTON:
+            if (state == GLUT_DOWN)
+                glutIdleFunc(moveLeft);
+            break;
+        case GLUT_RIGHT_BUTTON:
+            if (state == GLUT_DOWN)
+                glutIdleFunc(moveRight);
+            break;
+        default:
+            break;
+    }
 }
 ```
 #
@@ -150,22 +151,22 @@ void mouse(int key, int state, int x, int y){
 4. ultima piesa se opreste dupa o rotatie de 90 de grade
 ```C++
 if (x_tr <= max_stg){
-	start = 1;
-	if (max_stg > -148)
-		max_stg -= 1;
+    start = 1;
+    if (max_stg > -148)
+        max_stg -= 1;
 }
 if (rotate_angle_1 < 60 && start == 1)
-	rotate_angle_1 += 3;
+    rotate_angle_1 += 3;
 if (rotate_angle_2 < 60 && rotate_angle_1 >= 11.5)
-	rotate_angle_2 += 3;
+    rotate_angle_2 += 3;
 if (rotate_angle_3 < 60 && rotate_angle_2 >= 11.5)
-	rotate_angle_3 += 3;
+    rotate_angle_3 += 3;
 if (rotate_angle_4 < 60 && rotate_angle_3 >= 11.5)
-	rotate_angle_4 += 3;
+    rotate_angle_4 += 3;
 if (rotate_angle_5 < 62 && rotate_angle_4 >= 11.5)
-	rotate_angle_5 += 3;
+    rotate_angle_5 += 3;
 if (rotate_angle_6 < 90 && rotate_angle_5 >= 11.5)
-	rotate_angle_6 += 3;
+    rotate_angle_6 += 3;
 ```
 #
 #### Originalitate
