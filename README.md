@@ -1,10 +1,12 @@
 # Proiect Grafica pe calculator : Domino 2D
 ##### Nicolescu Bristena    |    Grupa 253
 
+
 ## Descrierea proiectului
 Tema aleasa pentru acest proiect este reprezentarea unui domino 2D format din piese, avand aceeasi dimensiune, care incep sa se miste atunci cand sunt lovite de un alt obiect.
 Animatia este simpla si interactiva.
 ![N|Solid](http://3.bp.blogspot.com/-UkCAootJS8o/UKP8oi_rIEI/AAAAAAAAAJA/QwTLAIngOS8/w1200-h630-p-k-no-nu/La+causa+1.jpg)
+
 
 ## Obiectele desenate
 ##### Desenarea se realizeaza cu ajutorul :
@@ -13,7 +15,7 @@ Animatia este simpla si interactiva.
 - poligoanelor
 - triunghiurilor
 - listelor de display
-#
+
 ##### Apar 3 tipuri de obiecte:
 - *masa* pe care este desenata scena
     - reprezentata de 2 picioare si o placa
@@ -76,7 +78,7 @@ void drawD1(){
 		glRecti(dominos[1].xJos, yJos, dominos[1].xSus, ySus);
 }
 ```
-#
+
 ##### Transformarile folosite pe aceste obiecte sunt:
 - translatie (miscarea masinii)
 ```C++
