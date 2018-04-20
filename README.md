@@ -22,20 +22,21 @@ Animatia este simpla si interactiva.
     - contur desenat cu linii si umplut cu poligoane
 ```C++
 glColor3f(0.5, 0.2, 0.0);	// culoarea interiorului mesei
-		// piciorul stang
-		glBegin(GL_POLYGON);
-			glVertex2i(-400, -200);
-			glVertex2i(-400, -1);
-			glVertex2i(-360, -1);
-			glVertex2i(-360, -200);
-		glEnd();
+	// piciorul stang
+	glBegin(GL_POLYGON);
+		glVertex2i(-400, -200);
+		glVertex2i(-400, -1);
+		glVertex2i(-360, -1);
+		glVertex2i(-360, -200);
+	glEnd();
 glColor3f(0.0, 0.0, 0.0);	// culoarea conturului mesei
-		glBegin(GL_LINES);
-			// piciorul stang
-			glVertex2i(-400, -200);
-			glVertex2i(-400, -1);
-			glVertex2i(-360, -200);
-			glVertex2i(-360, -50);
+	glBegin(GL_LINES);
+		// piciorul stang
+		glVertex2i(-400, -200);
+		glVertex2i(-400, -1);
+		glVertex2i(-360, -200);
+		glVertex2i(-360, -50);
+    glEnd();
 ```
 - *masina* cu care pot fi daramate piesele
     - reprezentata prin 2 roti si un triunghi
