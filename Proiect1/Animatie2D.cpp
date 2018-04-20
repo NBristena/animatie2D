@@ -4,10 +4,13 @@
 #include <stdlib.h>
 #include <String>
 
+/* Variabile necesare pentru desenarea textului:
+*/
 GLint x = 300;
 GLint y = 200;
 GLint xpos;
 GLint ypos;
+
 /* Variabile necesare pentru crearea pieselor de domino:
 *  (valorile de pe axa Oy sunt la fel pentru toate piesele)
 */
@@ -19,7 +22,7 @@ struct dominos {
 	GLdouble xJos, xSus;
 }dominos[NR_DOMINOS];
 
-/* Variabile necesare pentru crearea rotilor masinii:
+/* Variabile necesare pentru desenarea rotilor masinii:
 */
 GLint raza = 35;
 const GLdouble TWO_PI = 6.2831853;
@@ -38,8 +41,8 @@ GLdouble alpha = -0.01;				// unghiul de rotatie al rotilor
 GLdouble tr_speed = 3;				// viteza masinii
 GLint max_dr = 50, max_stg = -112;  // limitele miscarii
 
-									/* Variabile necesare pentru miscarea pieselor de domino:
-									*/
+/* Variabile necesare pentru miscarea pieselor de domino:
+*/
 GLdouble rotate_angle_1 = 0.001;
 GLdouble rotate_angle_2 = 0.001;
 GLdouble rotate_angle_3 = 0.001;
@@ -49,8 +52,8 @@ GLdouble rotate_angle_6 = 0.001;
 GLint start = 0; // indica inceperea miscarii
 
 
-void init(void)
-{									  // initializare fereastra de vizualizare
+void init(void)				
+{									  
 	glClearColor(0.3, 1.0, 1.0, 0.0);				  // culoarea de fond a ferestrei
 	glMatrixMode(GL_MODELVIEW);						  // reprezentare 2D realizata prin proiectie ortogonala
 	glOrtho(-525.0, 500.0, -200.0, 500.0, -1.0, 1.0); // scoordonatele extreme ale ferestrei
@@ -60,46 +63,46 @@ void init(void)
 void drawTable()
 {
 	glColor3f(0.5, 0.2, 0.0);	// culoarea interiorului mesei
-								// piciorul stang
-	glBegin(GL_POLYGON);
-	glVertex2i(-400, -200);
-	glVertex2i(-400, -1);
-	glVertex2i(-360, -1);
-	glVertex2i(-360, -200);
-	glEnd();
-	// piciorul drept
-	glBegin(GL_POLYGON);
-	glVertex2i(335, -200);
-	glVertex2i(335, -1);
-	glVertex2i(375, -1);
-	glVertex2i(375, -200);
-	glEnd();
-	// placa
-	glBegin(GL_POLYGON);
-	glVertex2i(-400, -50);
-	glVertex2i(-400, -1);
-	glVertex2i(375, -1);
-	glVertex2i(375, -50);
-	glEnd();
+		// piciorul stang
+		glBegin(GL_POLYGON);
+			glVertex2i(-400, -200);
+			glVertex2i(-400, -1);
+			glVertex2i(-360, -1);
+			glVertex2i(-360, -200);
+		glEnd();
+		// piciorul drept
+		glBegin(GL_POLYGON);
+			glVertex2i(335, -200);
+			glVertex2i(335, -1);
+			glVertex2i(375, -1);
+			glVertex2i(375, -200);
+		glEnd();
+		// placa
+		glBegin(GL_POLYGON);
+			glVertex2i(-400, -50);
+			glVertex2i(-400, -1);
+			glVertex2i(375, -1);
+			glVertex2i(375, -50);
+		glEnd();
 
 	glColor3f(0.0, 0.0, 0.0);	// culoarea conturului mesei
-	glBegin(GL_LINES);
-	// piciorul stang
-	glVertex2i(-400, -200);
-	glVertex2i(-400, -1);
-	glVertex2i(-360, -200);
-	glVertex2i(-360, -50);
-	// piciorul drept
-	glVertex2i(335, -50);
-	glVertex2i(335, -200);
-	glVertex2i(375, -1);
-	glVertex2i(375, -200);
-	// placa
-	glVertex2i(-400, -1);
-	glVertex2i(375, -1);
-	glVertex2i(-360, -50);
-	glVertex2i(335, -50);
-	glEnd();
+		glBegin(GL_LINES);
+			// piciorul stang
+			glVertex2i(-400, -200);
+			glVertex2i(-400, -1);
+			glVertex2i(-360, -200);
+			glVertex2i(-360, -50);
+			// piciorul drept
+			glVertex2i(335, -50);
+			glVertex2i(335, -200);
+			glVertex2i(375, -1);
+			glVertex2i(375, -200);
+			// placa
+			glVertex2i(-400, -1);
+			glVertex2i(375, -1);
+			glVertex2i(-360, -50);
+			glVertex2i(335, -50);
+		glEnd();
 }
 
 /// PIESE DOMINO
@@ -122,32 +125,32 @@ void createDominos()
 void drawD1()
 {
 	glColor3f(0.1, 0.0, 0.1);
-	glRecti(dominos[1].xJos, yJos, dominos[1].xSus, ySus);
+		glRecti(dominos[1].xJos, yJos, dominos[1].xSus, ySus);
 }
 void drawD2()
 {
 	glColor3f(0.2, 0.0, 0.2);
-	glRecti(dominos[2].xJos, yJos, dominos[2].xSus, ySus);
+		glRecti(dominos[2].xJos, yJos, dominos[2].xSus, ySus);
 }
 void drawD3()
 {
 	glColor3f(0.3, 0.0, 0.3);
-	glRecti(dominos[3].xJos, yJos, dominos[3].xSus, ySus);
+		glRecti(dominos[3].xJos, yJos, dominos[3].xSus, ySus);
 }
 void drawD4()
 {
 	glColor3f(0.4, 0.0, 0.4);
-	glRecti(dominos[4].xJos, yJos, dominos[4].xSus, ySus);
+		glRecti(dominos[4].xJos, yJos, dominos[4].xSus, ySus);
 }
 void drawD5()
 {
 	glColor3f(0.5, 0.0, 0.5);
-	glRecti(dominos[5].xJos, yJos, dominos[5].xSus, ySus);
+		glRecti(dominos[5].xJos, yJos, dominos[5].xSus, ySus);
 }
 void drawD6()
 {
 	glColor3f(0.6, 0.0, 0.6);
-	glRecti(dominos[6].xJos, yJos, dominos[6].xSus, ySus);
+		glRecti(dominos[6].xJos, yJos, dominos[6].xSus, ySus);
 }
 
 /// MASINA
@@ -159,66 +162,66 @@ void drawCar()
 
 	// Corp (triunghi)
 	glColor3f(0.0, 0.2, 0.2);
-	glBegin(GL_TRIANGLES);
-	glVertex2f(245, 25);
-	glVertex2f(140, 130);
-	glVertex2f(350, 130);
-	glEnd();
+		glBegin(GL_TRIANGLES);
+			glVertex2f(245, 25);
+			glVertex2f(140, 130);
+			glVertex2f(350, 130);
+		glEnd();
 
 	// Roata 1
 	regHex1 = glGenLists(1);
 	glNewList(regHex1, GL_COMPILE);
-	glColor3f(0.0, 0.0, 0.0);
-	glBegin(GL_POLYGON);
-	for (k = 0; k < 100; k++)
-	{
-		hexTheta = TWO_PI * k / 100;
-		hexVertex.x = 195 + raza * cos(hexTheta);
-		hexVertex.y = 35 + raza * sin(hexTheta);
-		glVertex2i(hexVertex.x, hexVertex.y);
-	}
-	glEnd();
-	glColor3f(0.6, 0.6, 0.6);
-	glRecti(165, 33, 225, 37);
-	glRecti(193, 5, 197, 65);
+		glColor3f(0.0, 0.0, 0.0);
+			glBegin(GL_POLYGON);
+				for (k = 0; k < 100; k++)
+				{
+					hexTheta = TWO_PI * k / 100;
+					hexVertex.x = 195 + raza * cos(hexTheta);
+					hexVertex.y = 35 + raza * sin(hexTheta);
+					glVertex2i(hexVertex.x, hexVertex.y);
+				}
+			glEnd();
+		glColor3f(0.6, 0.6, 0.6);
+			glRecti(165, 33, 225, 37);
+			glRecti(193, 5, 197, 65);
 	glEndList();
 
 	// Roata 2
 	regHex2 = glGenLists(2);
 	glNewList(regHex2, GL_COMPILE);
-	glColor3f(0.0, 0.0, 0.0);
-	glBegin(GL_POLYGON);
-	for (k = 0; k < 100; k++)
-	{
-		hexTheta = TWO_PI * k / 100;
-		hexVertex.x = 295 + raza * cos(hexTheta);
-		hexVertex.y = 35 + raza * sin(hexTheta);
-		glVertex2i(hexVertex.x, hexVertex.y);
-	}
-	glEnd();
-	glColor3f(0.6, 0.6, 0.6);
-	glRecti(265, 33, 325, 37);
-	glRecti(293, 5, 297, 65);
+		glColor3f(0.0, 0.0, 0.0);
+			glBegin(GL_POLYGON);
+				for (k = 0; k < 100; k++)
+				{
+					hexTheta = TWO_PI * k / 100;
+					hexVertex.x = 295 + raza * cos(hexTheta);
+					hexVertex.y = 35 + raza * sin(hexTheta);
+					glVertex2i(hexVertex.x, hexVertex.y);
+				}
+			glEnd();
+		glColor3f(0.6, 0.6, 0.6);
+			glRecti(265, 33, 325, 37);
+			glRecti(293, 5, 297, 65);
 	glEndList();
 
-	/*   Miscarea rotilor:
-	* 3. se muta obiectul in pozitia sa initiala
-	* 2. se roteste obiectul
-	* 1. se muta obiectul in origine
-	*/
-	glPushMatrix();
-	glTranslatef(195, 35, 0.0);
-	glRotatef(alpha, 0.0, 0.0, 1.0);
-	glTranslatef(-195, -35, 0.0);
-	glCallList(regHex1);
-	glPopMatrix();
+		/*   Miscarea rotilor:
+		* 3. se muta obiectul in pozitia sa initiala
+		* 2. se roteste obiectul
+		* 1. se muta obiectul in origine
+		*/
+		glPushMatrix();
+			glTranslatef(195, 35, 0.0);
+			glRotatef(alpha, 0.0, 0.0, 1.0);
+			glTranslatef(-195, -35, 0.0);
+			glCallList(regHex1);
+		glPopMatrix();
 
-	glPushMatrix();
-	glTranslatef(295, 35, 0.0);
-	glRotatef(alpha, 0.0, 0.0, 1.0);
-	glTranslatef(-295, -35, 0.0);
-	glCallList(regHex2);
-	glPopMatrix();
+		glPushMatrix();
+			glTranslatef(295, 35, 0.0);
+			glRotatef(alpha, 0.0, 0.0, 1.0);
+			glTranslatef(-295, -35, 0.0);
+			glCallList(regHex2);
+		glPopMatrix();
 
 	glPopMatrix();
 }
@@ -233,7 +236,7 @@ void drawScene(void)
 	std::string text2 = "1. Click dreapta pentru a misca masina";
 	std::string text3 = "2. Click stanga pentru a o trimite in directa pieselor";
 	std::string text4 = "3. Bucurati-va de cele 5 secunde de domino :)";
-
+	// Afisare instructiuni
 	if (nr_dominos == 6)
 	{
 		xpos = -300; ypos = 460;
@@ -242,18 +245,21 @@ void drawScene(void)
 			glRasterPos2f(xpos + i * 15, ypos);
 			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text1[i]);
 		}
+
 		xpos = -450;  ypos = 425;
 		for (int i = 0; i < text2.length(); i++)
 		{
 			glRasterPos2f(xpos + i * 16, ypos);
 			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text2[i]);
 		}
+
 		xpos = -450;  ypos = 400;
 		for (int i = 0; i < text3.length(); i++)
 		{
 			glRasterPos2f(xpos + i * 16, ypos);
 			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text3[i]);
 		}
+
 		xpos = -450;  ypos = 375;
 		for (int i = 0; i < text4.length(); i++)
 		{
@@ -266,50 +272,50 @@ void drawScene(void)
 
 	// Creerea, desenarea si miscarea pieselor de domino:
 	createDominos();
-	// piesa 1
-	glPushMatrix();
-	glRotated(rotate_angle_1, 0.0, 0.0, 1.0);
-	drawD1();
-	glPopMatrix();
-	// piesa 2
-	glPushMatrix();
-	glTranslatef(-60.0, 0.0, 0.0);
-	glRotatef(rotate_angle_2, 0.0, 0.0, 1.0);
-	glTranslatef(60.0, 0.0, 0.0);
-	drawD2();
-	glPopMatrix();
-	// piesa 3
-	glPushMatrix();
-	glTranslatef(-120.0, 0.0, 0.0);
-	glRotatef(rotate_angle_3, 0.0, 0.0, 1.0);
-	glTranslatef(120.0, 0.0, 0.0);
-	drawD3();
-	glPopMatrix();
-	// piesa 4
-	glPushMatrix();
-	glTranslatef(-180.0, 0.0, 0.0);
-	glRotatef(rotate_angle_4, 0.0, 0.0, 1.0);
-	glTranslatef(180.0, 0.0, 0.0);
-	drawD4();
-	glPopMatrix();
-	// piesa 5
-	glPushMatrix();
-	glTranslatef(-240.0, 0.0, 0.0);
-	glRotatef(rotate_angle_5, 0.0, 0.0, 1.0);
-	glTranslatef(240.0, 0.0, 0.0);
-	drawD5();
-	glPopMatrix();
-	// piesa 6
-	glPushMatrix();
-	glTranslatef(-300.0, 0.0, 0.0);
-	glRotatef(rotate_angle_6, 0.0, 0.0, 1.0);
-	glTranslatef(300.0, 0.0, 0.0);
-	drawD6();
-	glPopMatrix();
+		// piesa 1
+		glPushMatrix();
+			glRotated(rotate_angle_1, 0.0, 0.0, 1.0);
+			drawD1();
+		glPopMatrix();
+		// piesa 2
+		glPushMatrix();
+			glTranslatef(-60.0, 0.0, 0.0);
+			glRotatef(rotate_angle_2, 0.0, 0.0, 1.0);
+			glTranslatef(60.0, 0.0, 0.0);
+		drawD2();
+		glPopMatrix();
+		// piesa 3
+		glPushMatrix();
+			glTranslatef(-120.0, 0.0, 0.0);
+			glRotatef(rotate_angle_3, 0.0, 0.0, 1.0);
+			glTranslatef(120.0, 0.0, 0.0);
+		drawD3();
+		glPopMatrix();
+		// piesa 4
+		glPushMatrix();
+			glTranslatef(-180.0, 0.0, 0.0);
+			glRotatef(rotate_angle_4, 0.0, 0.0, 1.0);
+			glTranslatef(180.0, 0.0, 0.0);
+		drawD4();
+		glPopMatrix();
+		// piesa 5
+		glPushMatrix();
+			glTranslatef(-240.0, 0.0, 0.0);
+			glRotatef(rotate_angle_5, 0.0, 0.0, 1.0);
+			glTranslatef(240.0, 0.0, 0.0);
+		drawD5();
+		glPopMatrix();
+		// piesa 6
+		glPushMatrix();
+			glTranslatef(-300.0, 0.0, 0.0);
+			glRotatef(rotate_angle_6, 0.0, 0.0, 1.0);
+			glTranslatef(300.0, 0.0, 0.0);
+		drawD6();
+		glPopMatrix();
 
 	glPushMatrix();
-	glTranslated(x_tr, 0, 0);
-	drawCar();
+		glTranslated(x_tr, 0, 0);
+		drawCar();
 	glPopMatrix();
 
 	/*		COLIZIUNE
@@ -339,28 +345,30 @@ void drawScene(void)
 
 	glPopMatrix();
 
+	// Text miscare max dreapta a masinii
 	if (x_tr >= max_dr)
 	{
 		glColor3f(1.0, 0.0, 0.0);
-		std::string text1Dr = "  STOP!  ";
-		std::string text2Dr = "O SA CAZI";
-		for (int i = 0; i < text1Dr.length(); i++)
-		{
-			glRasterPos2f(x + i * 17, y);
-			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text1Dr[i]);
-			glRasterPos2f(x + i * 17, y - 30);
-			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text2Dr[i]);
-		}
+			std::string text1Dr = "  STOP!  ";
+			std::string text2Dr = "O SA CAZI";
+			for (int i = 0; i < text1Dr.length(); i++)
+			{
+				glRasterPos2f(x + i * 17, y);
+				glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text1Dr[i]);
+				glRasterPos2f(x + i * 17, y - 30);
+				glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text2Dr[i]);
+			}
 	}
+	// Text miscare max stanga a masinii
 	if (x_tr <= max_stg)
 	{
 		glColor3f(0.0, 0.3, 0.0);
-		std::string textStg = "Nu ai unde sa mai mergi...";
-		for (int i = 0; i < textStg.length(); i++)
-		{
-			glRasterPos2f(x - 600 + i * 17, y + 50);
-			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, textStg[i]);
-		}
+			std::string textStg = "Nu ai unde sa mai mergi...";
+			for (int i = 0; i < textStg.length(); i++)
+			{
+				glRasterPos2f(x - 600 + i * 17, y + 50);
+				glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, textStg[i]);
+			}
 	}
 
 	glutSwapBuffers();
