@@ -1,166 +1,170 @@
-# Proiect Grafica pe calculator : Sala de lectura pentru copii
+# Proiect Grafica pe calculator : Domino 2D
 ##### Nicolescu Bristena | Grupa 253
-##### Zanfir Andrei | Grupa 254
-##
-##
-##
+#
+#
 ## Descrierea proiectului
-Tema aleasa pentru acest proiect este o camera de lectura pentru copii.
-Proiectul este simplu si intruneste aproape toate cunostiintele acumulate la curs.
-![N|Solid](https://lh5.googleusercontent.com/dsubGilKyHnQeFPpCsVmBATX0M3OAeUPoszU_uhuMt3PEKSYXdzOzfH9c7vHs44WPDqfM49r82Ktzq8iiE2q=w1304-h677-rw)
-
-
-## Scena a fost realizeaza cu ajutorul :
-- obiectelor cuadrice
-- obiectelor 3D solide
-- transformarilor 3D
-- testelor de adancime
-- texturilor
-- iluminarii
-- umbrelor
-### Obiectele desenate impreuna cu transformarile aplicate:
-- ##### bec
+Tema aleasa pentru acest proiect este reprezentarea unui domino 2D format din piese, avand aceeasi dimensiune, care incep sa se miste atunci cand sunt lovite de un alt obiect.
+Animatia este simpla si interactiva.
+![N|Solid](http://3.bp.blogspot.com/-UkCAootJS8o/UKP8oi_rIEI/AAAAAAAAAJA/QwTLAIngOS8/w1200-h630-p-k-no-nu/La+causa+1.jpg)
+#
+#
+## Obiectele desenate
+##### Desenarea se realizeaza cu ajutorul :
+- liniilor
+- dreptunghiurilor
+- poligoanelor
+- triunghiurilor
+- listelor de display
+#
+##### Apar 3 tipuri de obiecte:
+- *masa* pe care este desenata scena
+    - reprezentata de 2 picioare si o placa
+    - contur desenat cu linii si umplut cu poligoane
 ```C++
-void lumina(void) {
-	glPushMatrix();
-    	glTranslatef(lightpos[X], lightpos[Y], lightpos[Z]);
-    	glDisable(GL_LIGHTING);
-    	glColor3f(1.f, 1.f, .8f);
-    	glCallList(LIGHT);
-    	glEnable(GL_LIGHTING);
-	glPopMatrix();
-}
-
-//format dintr-o sfera cuadrica
-    glNewList(LIGHT, GL_COMPILE);
-    	sphere = gluNewQuadric();
-    	gluSphere(sphere, 5.f, 20, 20);
-    	gluDeleteQuadric(sphere);
-    glEndList();
+glColor3f(0.5, 0.2, 0.0);	// culoarea interiorului mesei
+		// piciorul stang
+		glBegin(GL_POLYGON);
+			glVertex2i(-400, -200);
+			glVertex2i(-400, -1);
+			glVertex2i(-360, -1);
+			glVertex2i(-360, -200);
+		glEnd();
+glColor3f(0.0, 0.0, 0.0);	// culoarea conturului mesei
+		glBegin(GL_LINES);
+			// piciorul stang
+			glVertex2i(-400, -200);
+			glVertex2i(-400, -1);
+			glVertex2i(-360, -200);
+			glVertex2i(-360, -50);
 ```
-- ##### mese
+- *masina* cu care pot fi daramate piesele
+    - reprezentata prin 2 roti si un triunghi
+    - rotile au 2 dreptunghiuri asezate in + pentru a evidentia rotatia
 ```C++
-void masa1(void)
-{
-	glPushMatrix();
-    	glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, masa1_mat);
-    	glTranslatef(-130.f, -100.f, -480.f);
-    	glCallList(CONE);
-	glPopMatrix();
-
-	glPushMatrix();
-    	glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, masa1_mat);
-    	glTranslatef(-130.f, -70.f, -480.f);
-    	glCallList(MASA);
-	glPopMatrix();
-
-	glPushMatrix();
-    	glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, sphere_mat);
-    	glTranslatef(-130.f, -40.f, -480.f);
-    	glCallList(SPHERE);
-	glPopMatrix();
-}
-
-////formate din obiecte cuadrice
-//con - piciorul
-    glNewList(CONE, GL_COMPILE);
-    	cone = gluNewQuadric();
-    	glRotatef(-90.f, 1.f, 0.f, 0.f);
-    	gluCylinder(cone, 10., 1., 55., 20, 20);
-    	gluDeleteQuadric(cone);
-	glEndList();
-//cilindru - blatul mesei
-	glNewList(MASA, GL_COMPILE);
-    	masa = gluNewQuadric();
-    	base = gluNewQuadric();
-    	glRotatef(-90.f, 1.f, 0.f, 0.f);
-    	glPushMatrix();
-        	glTranslatef(0. ,0., 10. );
-        	gluDisk(base, 0., 40., 100, 1);
-    	glPopMatrix();
-    	gluDisk(base, 0., 40., 100, 1);
-    	gluCylinder(masa, 40., 40., 10., 100, 100);
-    	gluDeleteQuadric(masa);
-    	gluDeleteQuadric(base);
-	glEndList();
-//sfera din mijlocul mesei
-	glNewList(SPHERE, GL_COMPILE);
-    	sphere = gluNewQuadric();
-    	gluSphere(sphere, 10.f, 50, 20);
-    	gluDeleteQuadric(sphere);
+// Roata 1
+	regHex1 = glGenLists(1);
+	glNewList(regHex1, GL_COMPILE);
+		glColor3f(0.0, 0.0, 0.0);
+			glBegin(GL_POLYGON);
+				for (k = 0; k < 100; k++){
+					hexTheta = TWO_PI * k / 100;
+					hexVertex.x = 195 + raza * cos(hexTheta);
+					hexVertex.y = 35 + raza * sin(hexTheta);
+					glVertex2i(hexVertex.x, hexVertex.y);
+				}
+			glEnd();
+		glColor3f(0.6, 0.6, 0.6);
+			glRecti(165, 33, 225, 37);
+			glRecti(193, 5, 197, 65);
 	glEndList();
 ```
-- ##### perna
+- 6 *piese* de domino 
+    - se stiu coordonatele primei piese iar restul sunt create in functie de aceasta si sunt retinute intr-o structura
+    - desenate separat pentru ca fiecare piesa sa aiba rotatia sa
 ```C++
-void perna(void)
-{
-	glPushMatrix();
-    	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, scaun_mat);
-    	glTranslatef(-180.f, -72.f, -360.f);
-    	glRotatef(90.f, 20.f, 90.f, 40.f);
-//formata dintr-un obiect 3D solid
-	    glutSolidTorus(10.0, 20.0, 100, 100);
-	glPopMatrix();
+void createDominos(){
+	for (int c = 1; c <= nr_dominos; c++){
+		if (c == 1){
+			dominos[c].xJos = 0;
+			dominos[c].xSus = 30;
+		}else{
+			dominos[c].xJos = dominos[c - 1].xJos - 60;
+			dominos[c].xSus = dominos[c - 1].xSus - 60;
+		}
+	}
+}
+void drawD1(){
+	glColor3f(0.1, 0.0, 0.1);
+		glRecti(dominos[1].xJos, yJos, dominos[1].xSus, ySus);
 }
 ```
-
-### Teste de adancime si iluminare
+#
+##### Transformarile folosite pe aceste obiecte sunt:
+- translatie (miscarea masinii)
 ```C++
-//Am salvat pozitia luminii intr-un vector pentru a o putea folosi si la desenarea becului
-GLfloat lightpos[] = { 0.f, 80.f, -350.f, 1.f };
-
-//In functia main() am aplicat proprietatile de lumina si test de adancime
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-//dupa care am setat pozitia si culoarea luminii
-	float alb[] = { 1.0, 1.0, 1.0, 0.0 };
-	glLightfv(GL_LIGHT0, GL_AMBIENT, alb);
-	glLightfv(GL_LIGHT0, GL_POSITION, lightpos);
+glPushMatrix();
+	glTranslated(x_tr, 0, 0);
+	drawCar();
+glPopMatrix();
 ```
- Iluminarea poate fi observata pe sferele din mijlocul meselor, acestea fiind mai albe in partea dinspre bec, iar testul de adancime face ca varful conului sa fie desenat prin mijlocul blatului si nu in fata sau spatele lui.
+- rotatie (miscarea pieselor)
+```C++
+glPushMatrix();
+	glRotated(rotate_angle_1, 0.0, 0.0, 1.0);
+	drawD1();
+glPopMatrix();
+```
+- translatie compusa cu rotatie (invartirea rotilor)
+```C++
+glPushMatrix();
+	glTranslatef(195, 35, 0.0);      //3. muta obiectul in pozitia sa initiala
+	glRotatef(alpha, 0.0, 0.0, 1.0); //2. roteste obiectul
+	glTranslatef(-195, -35, 0.0);    //1. muta obiectul in origine
+	glCallList(regHex1);
+glPopMatrix();
+```
+#
+#
+## Functionarea animatiei
+ -> Instructiunile sunt afisate si in partea de sus a ferestrei.
+#### Input de la utilizator - miscarea masinii
+Aceasta se realizeaza cu ajutorul mouse-ului: miscarea incepe la apasarea oricarui buton, click dreapta directioneaza masina spre dreapta, respectiv click stanga o directioneaza spre stanga.
 
-### Texturare
-Am folosit 3 poze diferite pentru texturi (podea, pereti, tavan). Functia de incarcare a texturii peretilor este folosita in cele 3 functii de desenare pentru fiecare perete in parte.
 ```c++
-void LoadTexturePerete(void)
-{
-	GLuint texture2;
-	glGenTextures(1, &texture2);
-	glBindTexture(GL_TEXTURE_2D, texture2);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	int width, height;
-	unsigned char* image = SOIL_load_image("perete.png", &width, &height, 0, SOIL_LOAD_RGB);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+void moveLeft(void){
+	if (x_tr > max_stg){
+		x_tr += -tr_speed; //scade val de translatie => miscare la stanga
+		alpha += tr_speed; //creste unghiul de rotatie => rotatie spre stanga
+	}
+	glutPostRedisplay();
 }
-
-void drawTexturePereteSpate() {
-	LoadTexturePerete();
-
-	glBegin(GL_QUADS);
-		glTexCoord2f(0.0, 1.0); glVertex3f(-200.f, -100.f, -600.f);
-		glTexCoord2f(0.0, 0.0); glVertex3f(-200.f, 120.f, -600.f);
-		glTexCoord2f(1.0, 0.0); glVertex3f(210.f, 120.f, -600.f);
-		glTexCoord2f(1.0, 1.0); glVertex3f(210.f, -100.f, -600.f);
-	glEnd();
+void moveRight(void){
+	if (x_tr < max_dr){
+		x_tr += tr_speed; //creste val de translatie => miscare la dreapta
+		alpha -= tr_speed; //scade unghiul de rotatie => rotatie spre dreapta
+	}
+	glutPostRedisplay();
 }
-
-// Desenarea texturilor este apelata in functia de desen
-	glEnable(GL_TEXTURE_2D);
-		drawTextureParchet();
-		drawTexturePereteDreapta();
-		drawTexturePereteSpate();
-		drawTextureTavan();
-	glDisable(GL_TEXTURE_2D);
+void mouse(int key, int state, int x, int y){
+	switch (key){
+    	case GLUT_LEFT_BUTTON:
+    		if (state == GLUT_DOWN)
+    			glutIdleFunc(moveLeft);
+    		break;
+    	case GLUT_RIGHT_BUTTON:
+    		if (state == GLUT_DOWN)
+    			glutIdleFunc(moveRight);
+    		break;
+    	default:
+    		break;
+	}
+}
 ```
-### Umbre
-
-
-
-## Originalitate
-Nota de originalitate a proiectului o reprezinta design-ul nonconformist al meselor
+#
+#### Declansarea miscarii pieselor
+1. atunci cand varful masinii loveste prima piesa de domino aceasta incepe rotatia
+2. limita stanga de miscare a masinii se modifica deoarece prima piesa se muta
+3. cand unghiul cu care se roteste o piesa ajunge in punctul de coliziune (calculat matematic) se declanseaza rotatia urmatoarei piese
+4. ultima piesa se opreste dupa o rotatie de 90 de grade
+```C++
+if (x_tr <= max_stg){
+	start = 1;
+	if (max_stg > -148)
+		max_stg -= 1;
+}
+if (rotate_angle_1 < 60 && start == 1)
+	rotate_angle_1 += 3;
+if (rotate_angle_2 < 60 && rotate_angle_1 >= 11.5)
+	rotate_angle_2 += 3;
+if (rotate_angle_3 < 60 && rotate_angle_2 >= 11.5)
+	rotate_angle_3 += 3;
+if (rotate_angle_4 < 60 && rotate_angle_3 >= 11.5)
+	rotate_angle_4 += 3;
+if (rotate_angle_5 < 62 && rotate_angle_4 >= 11.5)
+	rotate_angle_5 += 3;
+if (rotate_angle_6 < 90 && rotate_angle_5 >= 11.5)
+	rotate_angle_6 += 3;
+```
+#
+#### Originalitate
+Fiind o simpla animatie a unor piese de domino elementul principal de originalitate este reprezentat de metoda aleasa pentru inceperea miscarii pieselor (lovite de o masina), impreuna cu avertizarile afisate prin text in momentele in care masina nu se mai poate deplasa sau nu ar mai trebui sa se deplaseze. Nu este o idee nemaiintalnita insa am preferat-o in detrimentul impingerii primei piese cu un deget.
